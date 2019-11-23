@@ -14,8 +14,20 @@ library(dplyr)
 library(lubridate)
 library(ggplot2)
 
+API_BASE <- Sys.getenv("OBSERVER_API_HOST", "https://numeric.linards.net/")
+httr::set_config(httr::config(http_version = 0))
+
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
+    dates <- GET(paste0(API_BASE, "data/dates")) %>%
+        content("text") %>%
+        fromJSON() %>%
+        .$Dates %>%
+        mutate(
+            max_date = ymd_hms(max_date)
+            , min_date = ymd_hms(min_date)
+        )
+
     output$select.source <- renderUI({
         sources = dates$data_source_id %>% setNames(dates$data_source_name)
         selectInput(
