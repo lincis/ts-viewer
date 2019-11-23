@@ -67,7 +67,7 @@ shinyServer(function(input, output) {
                 entity_created = ymd_hms(entity_created)
             )
         result
-    })
+        })
     
     output$tsPlot <- renderPlot({
         ggplot(observations(), aes(x = entity_created, y = value)) +

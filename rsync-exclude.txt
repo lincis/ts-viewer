@@ -1,0 +1,5 @@
+.git*
+.R*
+.travis.yml
+deploy_key*
+rsync-exclude.txt
