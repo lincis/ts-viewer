@@ -3,7 +3,7 @@ library(jsonlite)
 library(dplyr)
 library(lubridate)
 
-API_BASE <- "https://numeric.linards.net/"
+API_BASE <- Sys.getenv("OBSERVER_API_HOST", "https://numeric.linards.net/")
 httr::set_config(httr::config(http_version = 0))
 
 dates <- GET(paste0(API_BASE, "data/dates")) %>%

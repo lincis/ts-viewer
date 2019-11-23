@@ -1,4 +1,12 @@
 dist: bionic
+sudo: false
+latex: false
+language: ruby
+warnings_are_errors: false
+cache:
+  packages: true
+git:
+  depth: false
 script:
 - bash ./deploy.sh "$DEPLOY_HOST"
 before_install:
