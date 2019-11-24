@@ -14,7 +14,8 @@ library(dplyr)
 library(lubridate)
 library(ggplot2)
 
-API_BASE <- Sys.getenv("OBSERVER_API_HOST", "https://numeric.linards.net/")
+API_BASE <- Sys.getenv("OBSERVER_API_HOST", "http://rest-api/")
+message(API_BASE)
 httr::set_config(httr::config(http_version = 0))
 
 # Define server logic required to draw a histogram
@@ -83,6 +84,27 @@ shinyServer(function(input, output) {
     
     output$tsPlot <- renderPlot({
         ggplot(observations(), aes(x = entity_created, y = value)) +
-            geom_point()
+            geom_point() +
+            ylab(dates.by.type() %>% pull(units)) +
+            xlab("Date / time") +
+            theme(text = element_text(size=20))
+    })
+    
+    output$data.desc <- renderText({
+        paste0(
+            dates.by.type() %>% pull(data_source_name)
+            , ifelse(
+                is.na(dates.by.type() %>% pull(data_source_description))
+                , ""
+                , paste0(" (", dates.by.type() %>% pull(data_source_description), ") ")
+            )
+            , ": "
+            , dates.by.type() %>% pull(data_type_name)
+            , ifelse(
+                is.na(dates.by.type() %>% pull(data_type_description))
+                , ""
+                , paste0(" (", dates.by.type() %>% pull(data_type_description), ") ")
+            )
+        )
     })
 })

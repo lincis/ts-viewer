@@ -25,7 +25,8 @@ shinyUI(fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-            plotOutput("tsPlot")
+            h3(textOutput("data.desc"))
+            , plotOutput("tsPlot")
         )
     )
 ))
