@@ -30,11 +30,12 @@ shinyServer(function(input, output) {
         )
 
     output$select.source <- renderUI({
-        sources = dates$data_source_id %>% setNames(dates$data_source_name)
+        sources = dates$data_source_id %>% unique() %>% setNames(dates$data_source_name %>% unique())
         selectInput(
             "source", "Select data source"
             , choices = sources
             , width = "100%"
+            , selectize = FALSE
         )
     })
     
@@ -49,6 +50,7 @@ shinyServer(function(input, output) {
             "type", "Select data type"
             , types
             , width = "100%"
+            , selectize = FALSE
         )
     })
     
