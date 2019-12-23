@@ -14,7 +14,7 @@ library(dplyr)
 library(lubridate)
 library(ggplot2)
 
-API_BASE <- Sys.getenv("OBSERVER_API_HOST", "http://rest-api/")
+API_BASE <- Sys.getenv("OBSERVER_API_HOST", "http://rest-api:5000/")
 message(API_BASE)
 httr::set_config(httr::config(http_version = 0))
 
