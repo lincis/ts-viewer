@@ -72,7 +72,7 @@ shinyServer(function(input, output) {
     
     observations <- reactive({
         req(input$date.range)
-        url <- paste0(API_BASE, "data/", input$source, "/", input$type, "/", input$date.range[2], "/", input$date.range[1])
+        url <- URLdecode(paste0(API_BASE, "data/", input$source, "/", input$type, "/", input$date.range[2], "/", input$date.range[1]))
         message(url)
         result <- GET(url) %>%
             content("text")
