@@ -75,7 +75,9 @@ shinyServer(function(input, output) {
         url <- paste0(API_BASE, "data/", input$source, "/", input$type, "/", input$date.range[2], "/", input$date.range[1])
         message(url)
         result <- GET(url) %>%
-            content("text") %>%
+            content("text")
+        message(result)
+        result <- result %>%
             fromJSON() %>%
             .$Data %>%
             mutate(
